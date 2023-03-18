@@ -50,12 +50,10 @@ def profile_equation(phi):
 
 def profile_generation(resolution):
     csv = []
-    increment = 360 / resolution
-
-    for i in range(resolution):
-        degree = i * increment
-        csv.append([round(profile_equation(radians(degree))[0], 3), round(
-            profile_equation(radians(degree))[1], 3)])
+    for i in range(resolution + 1):
+        degree = i * (360 / resolution)
+        csv.append([round(profile_equation(radians(degree))[0] / 10, 3), round(
+            profile_equation(radians(degree))[1] / 10, 3)])
 
     return csv
 
@@ -70,6 +68,7 @@ def print_design_parameters():
     print("Teeth Number(z1):", teeth_number)
     print("Eccentricity(e0):", eccentricity)
     print("Disc Pitch Diameter(d1):", disc_pitch_diameter)
+    print("Output Hole Diameter(dw):", output_hole_diameter)
     print("\n")
     print("HOUSING")
     print("Housing Pin Radius Coefficient(rc*):", HOUSING_PIN_RADIUS_COEFF)
@@ -82,7 +81,6 @@ def print_design_parameters():
     print("OUTPUT")
     print("Output Pin Number:", OUTPUT_PIN_NUMBER)
     print("Output Pin Diameter(dp):", OUTPUT_PIN_DIAMETER)
-    print("Output Hole Diameter(dw):", output_hole_diameter)
     print("\n")
 
 
