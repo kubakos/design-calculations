@@ -4,8 +4,16 @@ from math import *
 
 class StrainWaveGear():
 
-    def __init__(self) -> None:
-        pass
+    def __init__(self, addendum_coeff, dedendum_coeff, tangent_length_coeff, pitch_tooth_thickness_coeff, arc_rad_coeff_of_tooth_face, arc_rad_coeff_of_tooth_flank, obliquity_angle, pitch_diameter, module):
+        self.addendum_coeff = addendum_coeff  # ha*
+        self.dedendum_coeff = dedendum_coeff  # hf*
+        self.tangent_length_coeff = tangent_length_coeff  # hl*
+        self.pitch_tooth_thickness_coeff = pitch_tooth_thickness_coeff  # S*
+        self.arc_rad_coeff_of_tooth_face = arc_rad_coeff_of_tooth_face  # rhoa*
+        self.arc_rad_coeff_of_tooth_flank = arc_rad_coeff_of_tooth_flank  # rhof*
+        self.obliquity_angle = obliquity_angle  # xi
+        self.pitch_diameter = pitch_diameter  # d
+        self.module = module  # m
 
 
 class Cycloidal():
