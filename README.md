@@ -1,1 +1,1 @@
-# cycloidal-drive-design-calculation
+# speed-reducer-design-calculations
