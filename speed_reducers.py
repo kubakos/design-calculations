@@ -4,16 +4,41 @@ from math import *
 
 class StrainWaveGear():
 
-    def __init__(self, addendum_coeff, dedendum_coeff, tangent_length_coeff, pitch_tooth_thickness_coeff, arc_rad_coeff_of_tooth_face, arc_rad_coeff_of_tooth_flank, obliquity_angle, pitch_diameter, module):
-        self.addendum_coeff = addendum_coeff  # ha*
-        self.dedendum_coeff = dedendum_coeff  # hf*
-        self.tangent_length_coeff = tangent_length_coeff  # hl*
-        self.pitch_tooth_thickness_coeff = pitch_tooth_thickness_coeff  # S*
-        self.arc_rad_coeff_of_tooth_face = arc_rad_coeff_of_tooth_face  # rhoa*
-        self.arc_rad_coeff_of_tooth_flank = arc_rad_coeff_of_tooth_flank  # rhof*
-        self.obliquity_angle = obliquity_angle  # xi
+    def __init__(self, addendum_coeff, dedendum_coeff, tangent_length_coeff, pitch_tooth_thickness_coeff, arc_rad_addendum_coeff, arc_rad_dedendum_coeff, obliquity_angle, pitch_diameter=50, module=2.0, ratio=50):
         self.pitch_diameter = pitch_diameter  # d
+        self.pitch_tooth_thickness_coeff = pitch_tooth_thickness_coeff  # S*
+        self.obliquity_angle = obliquity_angle  # xi
+        self.tangent_length_coeff = tangent_length_coeff  # hl*
+        self.arc_rad_addendum_coeff = arc_rad_addendum_coeff  # rhoa*
+        self.addendum_coeff = addendum_coeff  # ha*
+        self.arc_rad_dedendum_coeff = arc_rad_dedendum_coeff  # rhof*
+        self.dedendum_coeff = dedendum_coeff  # hf*
         self.module = module  # m
+        self.ratio = ratio  # i
+
+    def profile_equation(self, phi):
+        x, y = 0, 0
+        return x, y
+
+    def profile_generation(self, resolution):
+        csv = []
+        for i in range(resolution + 1):
+            degree = i * (360 / resolution)
+            csv.append([self.profile_equation(radians(degree))[0] /
+                       10, self.profile_equation(radians(degree))[1] / 10])
+
+        return csv
+
+    def print_design_parameters(self):
+        print("STRAIN WAVE GEAR SPEED REDUCER PARAMETERS\n")
+        print("Ratio(i):", self.ratio)
+        print("\n")
+
+    def save_profile_csv(self):
+        f = open("profiles/cycloid_profile.csv", "w")
+        for i in self.profile_generation(720):
+            f.write(str(i[0]) + ", " + str(i[1]) + ", 0" + "\n")
+        f.close()
 
 
 class Cycloidal():
