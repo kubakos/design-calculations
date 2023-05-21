@@ -1,1 +1,1 @@
-# speed-reducer-design-calculations
+# Design Calculations
