@@ -1,10 +1,16 @@
-#!/usr/bin/env python3
 from math import *
 
 
-class Cycloidal():
+class Cycloidal:
 
-    def __init__(self, ratio=25, module=2.0, mod_coeff=0.4, housing_pin_radius_coeff=1.0, output_pin_number=4, output_pin_diameter=3):
+    def __init__(self,
+                 ratio=25,
+                 module=2.0,
+                 mod_coeff=0.4,
+                 housing_pin_radius_coeff=1.0,
+                 output_pin_number=4,
+                 output_pin_diameter=3):
+
         self.ratio = ratio  # i
         self.module = module  # m
         self.mod_coeff = mod_coeff  # x
@@ -59,6 +65,12 @@ class Cycloidal():
 
         return csv
 
+    def export_profile_to_csv(self):
+        f = open("profiles/cycloidal_disk.csv", "w")
+        for i in self.profile_generation(720):
+            f.write(str(i[0]) + ", " + str(i[1]) + ", 0" + "\n")
+        f.close()
+
     def print_design_parameters(self):
         print("CYCLOIDAL SPEED REDUCER PARAMETERS\n")
         print("Ratio(i):", self.ratio)
@@ -87,16 +99,21 @@ class Cycloidal():
         print("Output Pin Diameter(dp):", self.output_pin_diameter)
         print("\n")
 
-    def save_profile_csv(self):
-        f = open("profiles/cycloid_profile.csv", "w")
-        for i in self.profile_generation(720):
-            f.write(str(i[0]) + ", " + str(i[1]) + ", 0" + "\n")
-        f.close()
 
+class StrainWaveGear:
 
-class StrainWaveGear():
+    def __init__(self,
+                 addendum_coeff,
+                 dedendum_coeff,
+                 tangent_length_coeff,
+                 pitch_tooth_thickness_coeff,
+                 arc_rad_addendum_coeff,
+                 arc_rad_dedendum_coeff,
+                 obliquity_angle,
+                 pitch_diameter=50,
+                 module=2.0,
+                 ratio=50):
 
-    def __init__(self, addendum_coeff, dedendum_coeff, tangent_length_coeff, pitch_tooth_thickness_coeff, arc_rad_addendum_coeff, arc_rad_dedendum_coeff, obliquity_angle, pitch_diameter=50, module=2.0, ratio=50):
         self.pitch_diameter = pitch_diameter  # d
         self.pitch_tooth_thickness_coeff = pitch_tooth_thickness_coeff  # S*
         self.obliquity_angle = obliquity_angle  # xi
@@ -121,13 +138,13 @@ class StrainWaveGear():
 
         return csv
 
+    def export_profile_to_csv(self):
+        f = open("profiles/strain_wave_gear.csv", "w")
+        for i in self.profile_generation(720):
+            f.write(str(i[0]) + ", " + str(i[1]) + ", 0" + "\n")
+        f.close()
+
     def print_design_parameters(self):
         print("STRAIN WAVE GEAR SPEED REDUCER PARAMETERS\n")
         print("Ratio(i):", self.ratio)
         print("\n")
-
-    def save_profile_csv(self):
-        f = open("profiles/cycloid_profile.csv", "w")
-        for i in self.profile_generation(720):
-            f.write(str(i[0]) + ", " + str(i[1]) + ", 0" + "\n")
-        f.close()
